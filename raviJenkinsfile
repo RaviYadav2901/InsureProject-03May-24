@@ -46,3 +46,4 @@ sh '''docker push raviyadav2901/insure-me-app:1.0
 
      }
 }
+}
