@@ -30,5 +30,19 @@ pipeline {
          sh 'docker build -t RaviYadav2901/insure-me-03may:1.0 .'
               }
            }
+stage('Docker Login') {
+  echo 'Login to Docker Hub to push images'
+withCredentials([usernamePassword(credentialsId: 'Dockerlogin-user', passwordVariable: 'Dockerpassword', usernameVariable: 'Dockerlogin')]) {
+sh ' docker login -u ${env.Dockerlogin} -p ${env.Dockerpassword}'
+          }
+                      }
+             }
+stage('Push the image')
+steps{
+sh '''docker push raviyadav2901/insure-me-app:1.0
+'''
+
+}
+
      }
 }
