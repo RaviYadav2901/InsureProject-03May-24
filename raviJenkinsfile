@@ -31,19 +31,18 @@ pipeline {
               }
            }
 stage('Docker Login') {
-  echo 'Login to Docker Hub to push images'
+  steps{  
+echo 'Login to Docker Hub to push images'
 withCredentials([usernamePassword(credentialsId: 'Dockerlogin-user', passwordVariable: 'Dockerpassword', usernameVariable: 'Dockerlogin')]) {
-sh ' docker login -u ${env.Dockerlogin} -p ${env.Dockerpassword}'
-          }
+sh ' docker login -u ${Dockerlogin} -p ${Dockerpassword}'
+                                 }
                       }
              }
-stage('Push the image')
+stage('Push the image'){
 steps{
-sh '''docker push raviyadav2901/insure-me-app:1.0
-'''
+sh 'docker push raviyadav2901/insure-me-app:1.0'
 
-}
-
-     }
-}
+                         }
+                 }
+         }
 }
