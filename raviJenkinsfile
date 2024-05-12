@@ -6,28 +6,29 @@ pipeline {
     }
   
   stages {
-    stage('CheckOut') {
+    stage('Checkout') {
       steps {
         echo 'Checkout the source code from GitHub'
-        git branch: 'main', url: 'https://github.com/cbabu85/InsureMe-20Mar.git'
+        git branch: 'main', url: 'https://github.com/RaviYadav2901/InsureProject-03May-24.git'
             }
     }
     stage('Package') {
-      steps{
-      echo 'Create a package'  
+      steps {
+        echo 'Create a Package'
         sh 'mvn clean package'
-        }
-      }
-stage('Publish test reports')
-steps{
-publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Insurance Project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+             }
+          }
+    stage('Publish Test Reports') {
+       steps {
+         publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/Insure Project/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+             }
+          }
+
+    stage('Create Image using the package') {
+       steps {
+         echo 'creating a docker image from the package'
+         sh 'docker build -t RaviYadav2901/insure-me-03may:1.0 .'
+              }
+           }
      }
-   }
-stage('create image of the package'){
-steps {
-echo 'creating a docker image from the package' 
-sh 'docker build -t RaviYadav2901/Insureme03May:01 .'
-     }
-   }
-  } 
- } 
+}
