@@ -44,5 +44,10 @@ sh 'docker push raviyadav2901/insure-me-app:1.0'
 
                          }
                  }
-         }
-}
+stage('Deploy using ansible steps')
+steps{
+ansiblePlaybook disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'ansible.yml', vaultTmpPath: ''
+                                    }
+                             }  
+                  } 
+       }
